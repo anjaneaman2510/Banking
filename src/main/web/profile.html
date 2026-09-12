@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SecureBank - Profile</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#07111f;
+    color:#eef6ff;
+    min-height:100vh;
+}
+
+/* Navbar */
+.navbar{
+    height:70px;
+    background:#0d1b2e;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 6%;
+    border-bottom:1px solid #1b3048;
+}
+
+.logo{
+    font-size:23px;
+    font-weight:bold;
+    color:#35d0ba;
+}
+
+.nav-links{
+    display:flex;
+    gap:25px;
+}
+
+.nav-links a{
+    color:#91a4ba;
+    text-decoration:none;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    color:#35d0ba;
+}
+
+/* Main */
+.container{
+    width:90%;
+    max-width:1000px;
+    margin:40px auto;
+}
+
+.page-title{
+    margin-bottom:25px;
+}
+
+.page-title h1{
+    font-size:30px;
+}
+
+.page-title p{
+    color:#91a4ba;
+    margin-top:7px;
+}
+
+/* Profile Card */
+.profile-card{
+    background:#0d1b2e;
+    border:1px solid #1b3048;
+    border-radius:18px;
+    padding:30px;
+}
+
+/* User Header */
+.user-header{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    padding-bottom:25px;
+    border-bottom:1px solid #1b3048;
+    margin-bottom:30px;
+}
+
+.avatar{
+    width:75px;
+    height:75px;
+    border-radius:50%;
+    background:#35d0ba;
+    color:#07111f;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
+    font-weight:bold;
+}
+
+.user-header h2{
+    font-size:24px;
+}
+
+.user-header p{
+    color:#91a4ba;
+    margin-top:5px;
+}
+
+/* Sections */
+.section{
+    margin-bottom:30px;
+}
+
+.section-title{
+    font-size:19px;
+    margin-bottom:18px;
+    color:#35d0ba;
+}
+
+/* Form */
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.input-box{
+    display:flex;
+    flex-direction:column;
+}
+
+.input-box label{
+    margin-bottom:8px;
+    color:#91a4ba;
+    font-size:14px;
+}
+
+.input-box input{
+    background:#10233a;
+    border:1px solid #263d58;
+    color:#eef6ff;
+    padding:13px;
+    border-radius:9px;
+    outline:none;
+    font-size:15px;
+}
+
+.input-box input:focus{
+    border-color:#35d0ba;
+}
+
+/* Readonly */
+.readonly{
+    opacity:.65;
+}
+
+/* Buttons */
+.buttons{
+    display:flex;
+    gap:15px;
+    margin-top:25px;
+}
+
+.btn{
+    border:none;
+    padding:13px 25px;
+    border-radius:9px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.save-btn{
+    background:#35d0ba;
+    color:#07111f;
+}
+
+.save-btn:hover{
+    transform:translateY(-2px);
+}
+
+.cancel-btn{
+    background:#10233a;
+    color:#eef6ff;
+    border:1px solid #263d58;
+}
+
+/* Danger */
+.danger-section{
+    border-top:1px solid #1b3048;
+    padding-top:25px;
+}
+
+.delete-btn{
+    background:#ff647c;
+    color:white;
+}
+
+/* Message */
+.message{
+    margin-top:18px;
+    padding:12px;
+    border-radius:8px;
+    display:none;
+    background:#102f2c;
+    color:#35d0ba;
+}
+
+/* Responsive */
+@media(max-width:700px){
+
+    .navbar{
+        padding:0 4%;
+    }
+
+    .nav-links{
+        display:none;
+    }
+
+    .container{
+        width:94%;
+        margin:25px auto;
+    }
+
+    .profile-card{
+        padding:20px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .user-header h2{
+        font-size:20px;
+    }
+
+    .buttons{
+        flex-direction:column;
+    }
+
+    .btn{
+        width:100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<script> if (!localStorage.getItem("jwtToken")) {
+    window.location.replace("user-login.html");
+}
+
+window.addEventListener("pageshow", function () {
+    if (!localStorage.getItem("jwtToken")) {
+        window.location.replace("user-login.html");
+    }
+});</script>
+<!-- Navbar -->
+<nav class="navbar">
+
+    <div class="logo">
+        🏦 SecureBank
+    </div>
+
+    <div class="nav-links">
+        <a href="user-dashboard.html">Dashboard</a>
+        <a href="account.html">Account</a>
+        <a href="transactions.html">Transactions</a>
+        <a href="profile.html">Profile</a>
+        <a href="index.html">Logout</a>
+    </div>
+
+</nav>
+
+
+<div class="container">
+
+    <div class="page-title">
+        <h1>My Profile</h1>
+        <p>Manage your personal and account information</p>
+    </div>
+
+
+    <div class="profile-card">
+
+        <!-- User Header -->
+        <div class="user-header">
+
+            <div class="avatar" id="avatar">
+                A
+            </div>
+
+            <div>
+                <h2 id="displayName"></h2>
+                <p>Bank Customer</p>
+            </div>
+
+        </div>
+
+
+        <!-- Personal Information -->
+        <div class="section">
+
+            <div class="section-title">
+                👤 Personal Information
+            </div>
+
+            <div class="form-grid">
+
+                <div class="input-box">
+
+                    <label>Full Name</label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        value=""
+                        placeholder="Enter your name">
+
+                </div>
+
+
+                <div class="input-box">
+
+                    <label>Mobile Number</label>
+
+                    <input
+                        type="tel"
+                        id="mobile"
+                        value="9876547890"
+                        maxlength="10"
+                        placeholder="Enter mobile number">
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Account Information -->
+        <div class="section">
+
+            <div class="section-title">
+                🏦 Account Information
+            </div>
+
+            <div class="form-grid">
+
+                <div class="input-box">
+
+                    <label>Account Number</label>
+
+                    <input
+                        class="readonly"
+                        id="account"
+                        type="text"
+                        value="123456789012"
+                        readonly>
+
+                </div>
+
+
+                <div class="input-box">
+
+                    <label>IFSC Code</label>
+
+                    <input
+                        class="readonly"
+                        type="text"
+                        id="ifsc"
+                        value="SBIN0001234"
+                        readonly>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Password -->
+        <div class="section">
+
+            <div class="section-title">
+                🔐 Change Password
+            </div>
+
+            <div class="form-grid">
+
+                <div class="input-box">
+
+                    <label>Current Password</label>
+
+                    <input
+                        type="password"
+                        id="currentPassword"
+                        placeholder="Current password">
+
+                </div>
+
+
+                <div class="input-box">
+
+                    <label>New Password</label>
+
+                    <input
+                        type="password"
+                        id="newPassword"
+                        placeholder="New password">
+
+                </div>
+
+
+                <div class="input-box">
+
+                    <label>Confirm New Password</label>
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        placeholder="Confirm new password">
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Buttons -->
+        <div class="buttons">
+
+            <button
+                class="btn save-btn"
+                onclick="saveProfile()">
+                💾 Save Changes
+            </button>
+
+            <button
+                class="btn cancel-btn"
+                onclick="location.reload()">
+                Cancel
+            </button>
+
+        </div>
+
+
+        <div class="message" id="message"></div>
+
+
+        <!-- Delete Account -->
+        <div class="section danger-section">
+
+            <div class="section-title" style="color:#ff647c;">
+                ⚠️ Danger Zone
+            </div>
+
+            <p style="color:#91a4ba; margin-bottom:15px;">
+                Deleting your account is permanent and cannot be undone.
+            </p>
+
+            <button
+                class="btn delete-btn"
+                onclick="deleteAccount()">
+                Delete Account
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="app.js"></script>
+<script>
+    
+    setUserDetailsProfile();
+function saveProfile(){
+
+    const name =
+        document.getElementById("name").value.trim();
+
+    const mobile =
+        document.getElementById("mobile").value.trim();
+
+    const currentPassword =
+        document.getElementById("currentPassword").value;
+
+    const newPassword =
+        document.getElementById("newPassword").value;
+
+    const confirmPassword =
+        document.getElementById("confirmPassword").value;
+
+    const message =
+        document.getElementById("message");
+
+
+    // Name validation
+    if(name === ""){
+        showMessage("Please enter your name.");
+        return;
+    }
+
+
+    // Mobile validation
+    if(!/^[0-9]{10}$/.test(mobile)){
+        showMessage("Please enter a valid 10-digit mobile number.");
+        return;
+    }
+
+
+    // Password validation
+    if(newPassword !== "" || confirmPassword !== ""){
+
+        if(currentPassword === ""){
+            showMessage("Please enter your current password.");
+            return;
+        }
+
+        if(newPassword.length < 6){
+            showMessage("New password must contain at least 6 characters.");
+            return;
+        }
+
+        if(newPassword !== confirmPassword){
+            showMessage("New password and confirm password do not match.");
+            return;
+        }
+    }
+
+
+    // Update UI
+    document.getElementById("displayName").innerText = name;
+
+    document.getElementById("avatar").innerText =
+        name.charAt(0).toUpperCase();
+
+
+    showMessage("Profile updated successfully!");
+
+
+    // Clear password fields
+    document.getElementById("currentPassword").value = "";
+    document.getElementById("newPassword").value = "";
+    document.getElementById("confirmPassword").value = "";
+}
+
+
+function showMessage(text){
+
+    const message =
+        document.getElementById("message");
+
+    message.innerText = text;
+    message.style.display = "block";
+
+    setTimeout(() => {
+        message.style.display = "none";
+    }, 3000);
+}
+
+
+function deleteAccount(){
+
+    const confirmDelete =
+        confirm(
+            "Are you sure you want to delete your account?"
+        );
+
+    if(confirmDelete){
+
+        alert("Account deletion request submitted.");
+
+        // Backend connect hone ke baad yaha API call hogi.
+        // window.location.href = "index.html";
+    }
+}
+
+</script>
+
+</body>
+</html>

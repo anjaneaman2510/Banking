@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Dashboard - SecureBank</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background: #07111f;
+        color: #eef6ff;
+      }
+      .navbar {
+        height: 70px;
+        background: #0d1b2e;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 6%;
+      }
+      .logo {
+        font-size: 24px;
+        font-weight: bold;
+        color: #35d0ba;
+      }
+      .navbar a {
+        color: #eef6ff;
+        text-decoration: none;
+        margin-left: 25px;
+      }
+       .navbar button {
+        color: #eef6ff;
+        text-decoration: none;
+        margin-left: 25px;
+        background-color: transparent;
+        border: none;
+        font-size: 16px;
+      }
+      .logout {
+        color: #ff647c !important;
+      }
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 35px auto;
+      }
+      .welcome {
+        margin-bottom: 30px;
+      }
+      .welcome h1 {
+        font-size: 32px;
+        margin-bottom: 8px;
+      }
+      .muted {
+        color: #91a4ba;
+      }
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+      }
+      .card {
+        background: #0d1b2e;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 25px;
+        transition: 0.3s;
+        font-size: 16px;
+      }
+      .card:hover {
+        transform: translateY(-4px);
+        border-color: #35d0ba;
+      }
+      .icon {
+        font-size: 30px;
+        margin-bottom: 15px;
+      }
+      .card h3 {
+        color: #91a4ba;
+        font-size: 15px;
+      }
+      .amount {
+        font-size: 27px;
+        margin-top: 8px;
+      }
+      .account {
+        font-size: 22px;
+        margin-top: 8px;
+      }
+      .mobile {
+        font-size: 22px;
+        margin-top: 8px;
+      }
+      .transection {
+        font-size: 22px;
+        margin-top: 8px;
+      }
+      .success {
+        color: #35d0ba;
+      }
+      .quick {
+        margin-top: 35px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+      .btn {
+        display: block;
+        text-align: center;
+        background: #35d0ba;
+        color: #06121d;
+        padding: 13px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      .btn.secondary {
+        background: #10233a;
+        color: #eef6ff;
+      }
+      .transactions {
+        margin-top: 35px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+      }
+      th,
+      td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .credit {
+        color: #35d0ba;
+      }
+      .debit {
+        color: #ff647c;
+      }
+
+      @media (max-width: 800px) {
+        .cards {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .quick {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 500px) {
+        .cards {
+          grid-template-columns: 1fr;
+        }
+        .navbar a {
+          margin-left: 8px;
+          font-size: 13px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>if (!localStorage.getItem("jwtToken")) {
+    window.location.replace("user-login.html");
+}
+
+window.addEventListener("pageshow", function () {
+    if (!localStorage.getItem("jwtToken")) {
+        window.location.replace("user-login.html");
+    }
+});</script>
+    <nav class="navbar">
+      <div class="logo">SecureBank</div>
+      <div>
+        <a href="user-dashboard.html">Dashboard</a>
+        <a href="profile.html">Profile</a>
+        <button  class="logout" onclick="logout()">Logout</button>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="welcome">
+        <h1 id="welcomeName">Welcome,<span id="nameSpan"></span> 👋</h1>
+        <p class="muted">Here's your account overview</p>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <div class="icon">💰</div>
+          <h3>Available Balance</h3>
+          <div class="amount">₹ <span id="amountSpan"></span></div>
+        </div>
+
+        <div class="card">
+          <div class="icon">🏦</div>
+          <h3>Account Number</h3>
+          <div class="account"><span id="accountSpan"></span></div>
+        </div>
+
+        <div class="card">
+          <div class="icon">📱</div>
+          <h3>Mobile Number</h3>
+          <div class="mobile">XXXXXX<span id="mobileSpan"></span></div>
+        </div>
+
+        <div class="card">
+          <div class="icon">📊</div>
+          <h3>Total Transactions</h3>
+          <div class="transection">24</div>
+        </div>
+      </div>
+
+      <div class="quick">
+        <a class="btn" href="transfer.html"> 💸 Transfer Money </a>
+
+        <a class="btn secondary" href="deposit.html"> 💰 Deposit Money </a>
+
+        <a class="btn secondary" href="withdraw.html"> 💳 Withdraw Money </a>
+
+        <a class="btn secondary" href="transactions.html">
+          📜 Transaction History
+        </a>
+
+        <a class="btn secondary" href="account.html"> 🏦 Account Details </a>
+
+        <a class="btn secondary" href="profile.html"> 👤 My Profile </a>
+      </div>
+
+      <div class="transactions card">
+        <h2>Recent Transactions</h2>
+
+        <table>
+          <tr>
+            <th>Date | Time</th>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Status</th>
+          </tr>
+
+          <tbody id="tableBodyFor3"></tbody>
+        </table>
+      </div>
+    </div>
+    <script src="app.js"></script>
+    <script>
+     // Page load par current history state ko push karo
+history.pushState(null, "", window.location.href);
+
+// Browser Back button
+window.addEventListener("popstate", function () {
+
+    const confirmLogout = confirm("Are you sure you want to logout?");
+
+    if (confirmLogout) {
+        logout();   // tumhara logout function
+    } else {
+        // Back ko cancel karke same page par rakho
+        history.pushState(null, "", window.location.href);
+    }
+});
+      const userChoice = localStorage.getItem("userChoice");
+      console.log(userChoice);
+      if (userChoice === "2") {
+        setUserDetails(localStorage.getItem("userMobile"));
+      } else {
+        setUserDetailsByAccount(localStorage.getItem("accountNumber"));
+      }
+
+      function logout()
+      {
+          sessionStorage.clear();
+          localStorage.clear();    
+          window.location.href = "user-login.html";
+      }
+    </script>
+  </body>
+</html>
