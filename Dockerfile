@@ -1,4 +1,4 @@
-FROM eclipse-temurin:21-jre
+FROM openjdk:25-jdk-slim
 WORKDIR /app
 COPY target/*.jar app.jar
 EXPOSE 8080
