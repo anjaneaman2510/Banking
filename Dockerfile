@@ -1,4 +1,4 @@
-FROM container-registry.oracle.com/java/jdk-ea:25
+FROM bellsoft/liberica-openjdk-alpine:25
 WORKDIR /app
 COPY target/*.jar app.jar
 EXPOSE 8080
