@@ -44,6 +44,13 @@ public class UserController {
         }
        return false;
     }
+    @GetMapping("/health")
+    {
+      public ResponseEntity<String> healthCHeck()
+      {
+        return ResponseEntity.ok("ok");
+      }
+    }
    @GetMapping("/getByMobile")
    public UserEntity getByMobileNumber(@RequestParam String number)
    { 
