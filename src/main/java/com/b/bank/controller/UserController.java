@@ -297,4 +297,10 @@ public ResponseEntity<?> userLogin1(@RequestBody LoginRequest request) {
     }
     userRepo.save(user);
  }
+
+     @GetMapping("/health")
+      public ResponseEntity<String> healthCHeck()
+      {
+        return ResponseEntity.ok("ok");
+      }
 }
