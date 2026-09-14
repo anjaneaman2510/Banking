@@ -26,7 +26,7 @@ public class UserConfig {
 @Order(0) // सबसे पहले यह चलेगा, बिना किसी OAuth2/JWT चेकिंग के
 public SecurityFilterChain healthCheckFilterChain(HttpSecurity http) throws Exception {
     http
-        .securityMatcher("/user/health")
+        .securityMatcher("/health","/user/health")
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth -> auth
             .anyRequest().permitAll()
