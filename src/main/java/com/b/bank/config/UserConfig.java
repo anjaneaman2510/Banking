@@ -34,8 +34,9 @@ public class UserConfig {
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .requestMatchers("/user/loginByAccount").permitAll()
                 .requestMatchers("/user/loginByMobile").permitAll()
+                 .requestMatchers("/user/health").permitAll()
                  .requestMatchers("/user/add").permitAll()
-                  .requestMatchers("/user/health").permitAll()
+                  
                 .anyRequest().authenticated()
             )
            .oauth2ResourceServer(oauth2 ->
