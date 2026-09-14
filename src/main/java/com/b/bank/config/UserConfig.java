@@ -46,7 +46,7 @@ public SecurityFilterChain healthCheckFilterChain(HttpSecurity http) throws Exce
                 .requestMatchers("/user/loginByAccount").permitAll()
                 .requestMatchers("/user/loginByMobile").permitAll()
                  .requestMatchers("/user/add").permitAll()
-                 .requestMatchers("/user/health").permitAll()
+            
                   
                 .anyRequest().authenticated()
             )
