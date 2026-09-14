@@ -22,6 +22,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableMethodSecurity
 public class AdminConfig {
 
+    
     @Bean
     @Order(2)
     public SecurityFilterChain securityChain2(HttpSecurity h1) throws Exception {

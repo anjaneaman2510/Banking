@@ -23,6 +23,17 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class UserConfig {
 
     @Bean
+@Order(0) // सबसे पहले यह चलेगा, बिना किसी OAuth2/JWT चेकिंग के
+public SecurityFilterChain healthCheckFilterChain(HttpSecurity http) throws Exception {
+    http
+        .securityMatcher("/user/health")
+        .csrf(csrf -> csrf.disable())
+        .authorizeHttpRequests(auth -> auth
+            .anyRequest().permitAll()
+        );
+    return http.build();
+}
+    @Bean
     @Order(1)
     public SecurityFilterChain securityChain1(HttpSecurity h1) throws Exception {
         h1
@@ -34,7 +45,6 @@ public class UserConfig {
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .requestMatchers("/user/loginByAccount").permitAll()
                 .requestMatchers("/user/loginByMobile").permitAll()
-                 .requestMatchers("/user/health").permitAll()
                  .requestMatchers("/user/add").permitAll()
                   
                 .anyRequest().authenticated()
