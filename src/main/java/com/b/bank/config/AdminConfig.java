@@ -34,7 +34,7 @@ public class AdminConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                  .requestMatchers("/admin/loginByMobile").permitAll()
-                // .requestMatchers("/admin/getByAccount").permitAll()
+                 .requestMatchers("/admin/add").permitAll()
                 .anyRequest().authenticated()
             )
                          .oauth2ResourceServer(oauth2 ->
