@@ -187,18 +187,11 @@ public ResponseEntity<?> userLogin1(@RequestBody LoginRequest request) {
   } 
 
   @PatchMapping("/update")
-  public boolean updateDetail(@RequestParam String accountNumber , @RequestParam int choice , @RequestParam String newDetail)
+  public boolean updateDetail(@RequestParam String accountNumber , @RequestParam String username  , @RequestParam String mobileNumber)
   {
-    UserEntity user=userRepo.findByAccountNumber(accountNumber);
-     switch(choice)
-     {
-      case 1 :user.setUserName(newDetail);
-              break;
-      case 2 :user.setPassword(newDetail);
-              break; 
-      case 3 :user.setMobileNumber(newDetail);
-              break;
-     }
+     UserEntity user=userRepo.findByAccountNumber(accountNumber);
+     user.setUserName(username);
+     user.setMobileNumber(mobileNumber);    
      userRepo.save(user);
      return true;
   } 
